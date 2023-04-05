@@ -7,7 +7,8 @@
 # Below is a list of the packages that would be installed
 #
 # hyprland: This is the Hyprland compositor
-# kitty: This is the default terminal
+# hyprpaper-git: This is a wallpaper manager for Hyprland
+# alacritty: This is my terminal emulator of choice
 # waybar-hyprland: This is a fork of waybar with Hyprland workspace support
 # swww: This is used to set a desktop background image
 # swaylock-effects: This allows for the locking of the desktop its a fork that adds some editional visual effects
@@ -16,30 +17,34 @@
 # mako: This is a graphical notification daemon
 # xdg-desktop-portal-hyprland-git: xdg-desktop-portal backend for hyprland
 # swappy: This is a screenshot editor tool
-# grim: This is a screenshot tool it grabs images from a Wayland compositor
+# grimshot: This is a screenshot tool
 # slurp: This helps with screenshots, it selects a region in a Wayland compositor
 # thunar: This is a graphical file manager
 # polkit-gnome: needed to get superuser access on some graphical appliaction
 # python-requests: needed for the weather module script to execute
 # pamixer: This helps with audio settings such as volume
 # pavucontrol: GUI for managing audio and audio devices
-# brightnessctl: used to control monitor and keyboard bright level
-# bluez: the bluetooth service
-# bluez-utils: command line utilities to interact with bluettoth devices
-# blueman: Graphical bluetooth manager
 # network-manager-applet: Applet for managing network connection
 # gvfs: adds missing functionality to thunar such as automount usb drives
 # thunar-archive-plugin: Provides a front ent for thunar to work with compressed files
 # file-roller: Backend set of tools for working with compressed files
 # btop: Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
-# pacman-contrib: adds additional tools for pacman. needed for showing system updates in the waybar
-# starship: allows to customize the shell prompt
-# ttf-jetbrains-mono-nerd: Som nerd fonts for icons and overall look
 # noto-fonts-emoji: fonts needed by the weather script in the top bar
 # lxappearance: used to set GTK theme
 # xfce4-settings: set of tools for xfce, needed to set GTK theme
 # sddm-git: developement version of SDDM which is a display manager for graphical login
-# sddm-sugar-candy-git: an sddm theme my theme is based on (copy of)
+# sddm-sugar-candy-git: an sddm theme
+# ttf-firacode-nerd: Nerd fonts for icons and overall look
+# neofetch: This is a system information tool
+# pfetch-git: I like pfetch better than neofetch (don't judge me)
+# zsh: This is my shell of choice
+# oh-my-zsh-git: This is a framework for zsh
+
+# Hyprland fixes (Nvidia)
+# nvidia-vaapi-driver-git
+# libva-git
+# qt5ct
+# qt5-wayland
 
 # set some colors
 CNT="[\e[1;36mNOTE\e[0m]"
@@ -47,7 +52,6 @@ COK="[\e[1;32mOK\e[0m]"
 CER="[\e[1;31mERROR\e[0m]"
 CAT="[\e[1;37mATTENTION\e[0m]"
 CWR="[\e[1;35mWARNING\e[0m]"
-CAC="[\e[1;33mACTION\e[0m]"
 INSTLOG="install.log"
 
 #clear the screen
@@ -80,15 +84,15 @@ If you are worried about entering your password then you may want to review the 
 sleep 3
 
 #### Check for yay ####
-ISYAY=/sbin/yay
-if [ -f "$ISYAY" ]; then 
+HASYAY=$(which yay)
+if [ -f "$HASYAY" ]; then
     echo -e "$COK - yay was located, moving on."
 else 
     echo -e "$CWR - Yay was NOT located"
     read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install yay (y,n) ' INSTYAY
     if [[ $INSTYAY == "Y" || $INSTYAY == "y" ]]; then
         git clone https://aur.archlinux.org/yay-git.git &>> $INSTLOG
-        cd yay-git
+        cd yay-git || exit
         makepkg -si --noconfirm &>> ../$INSTLOG
         cd ..
         
@@ -98,20 +102,7 @@ else
     fi
 fi
 
-### Disable wifi powersave mode ###
-read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to disable WiFi powersave? (y,n) ' WIFI
-if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
-    LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
-    echo -e "$CNT - The following file has been created $LOC."
-    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC &>> $INSTLOG
-    echo -e "\n"
-    echo -e "$CNT - Restarting NetworkManager service..."
-    sleep 1
-    sudo systemctl restart NetworkManager &>> $INSTLOG
-    sleep 3
-fi
-
-### Install all of the above pacakges ####
+### Install all of the above packages ####
 read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install the packages? (y,n) ' INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
     # update the DB first
@@ -120,7 +111,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     
     #Stage 1
     echo -e "\n$CNT - Stage 1 - Installing main components, this may take a while..."
-    for SOFTWR in hyprland kitty waybar-hyprland swww swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grim slurp thunar
+    for SOFTWR in hyprland hyprpaper-git alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grimshot slurp thunar
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -139,7 +130,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 
     #Stage 2
     echo -e "\n$CNT - Stage 2 - Installing additional tools and utilities, this may take a while..."
-    for SOFTWR in polkit-gnome python-requests pamixer pavucontrol brightnessctl bluez bluez-utils blueman network-manager-applet gvfs thunar-archive-plugin file-roller btop pacman-contrib
+    for SOFTWR in polkit-gnome python-requests pamixer pavucontrol network-manager-applet gvfs thunar-archive-plugin file-roller btop neofetch pfetch-git
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -158,7 +149,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 
     #Stage 3
     echo -e "\n$CNT - Stage 3 - Installing theme and visual related tools and utilities, this may take a while..."
-    for SOFTWR in starship ttf-jetbrains-mono-nerd noto-fonts-emoji lxappearance xfce4-settings sddm-git sddm-sugar-candy-git 
+    for SOFTWR in ttf-firacode-nerd noto-fonts-emoji lxappearance xfce4-settings sddm-git sddm-sugar-candy-git
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -191,93 +182,90 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 fi
 
 ### Copy Config Files ###
-read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) ' CFG
+read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config.jsonc files? (y,n) ' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
-    for DIR in hypr kitty mako swaylock waybar wlogout wofi 
+    for DIR in .config.jsonc/*
     do 
-        DIRPATH=~/.config/$DIR
+        DIRPATH=~/.config.jsonc/$DIR
         if [ -d "$DIRPATH" ]; then 
             echo -e "$CAT - Config for $DIR located, backing up."
-            mv $DIRPATH $DIRPATH-back &>> $INSTLOG
-            echo -e "$COK - Backed up $DIR to $DIRPATH-back."
+            mv "$DIRPATH" "$DIRPATH"-backup &>> $INSTLOG
+            echo -e "$COK - Backed up $DIR to $DIRPATH-backup."
         fi
         echo -e "$CNT - Copying $DIR config to $DIRPATH."  
-        cp -R $DIR ~/.config/ &>> $INSTLOG
+        cp -R "$DIR" ~/.config.jsonc/ &>> $INSTLOG
     done
 
-    # Set some files as exacutable
-    echo -e "$CNT - Setting some file as executable." 
-    chmod +x ~/.config/hypr/scripts/bgaction
-    chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
-    chmod +x ~/.config/waybar/scripts/waybar-wttr.py
-    chmod +x ~/.config/waybar/scripts/baraction
-    chmod +x ~/.config/waybar/scripts/update-sys
+    # Set some files as executable
+    echo -e "$CNT - Setting some file as executable."
+    chmod +x ~/.config.jsonc/hypr/scripts/xdg-portal-hyprland
+    chmod +x ~/.config.jsonc/waybar/scripts/waybar-wttr.py
+    chmod +x ~/.config.jsonc/waybar/scripts/baraction
+    chmod +x ~/.config.jsonc/waybar/scripts/update-sys
 
     # Copy the SDDM theme
     echo -e "$CNT - Setting up the login screen."
-    sudo cp -R sdt /usr/share/sddm/themes/
-    sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
     sudo mkdir /etc/sddm.conf.d
-    echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
+    echo -e "[Theme]\nCurrent=sugar-candy" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
+
     WLDIR=/usr/share/wayland-sessions
     if [ -d "$WLDIR" ]; then
         echo -e "$COK - $WLDIR found"
     else
         echo -e "$CWR - $WLDIR NOT found, creating..."
         sudo mkdir $WLDIR
-    fi 
-    sudo cp extras/hyprland.desktop /usr/share/wayland-sessions/
-    sudo sudo sed -i 's/Exec=Hyprland/Exec=\/home\/'$USER'\/start-hypr/' /usr/share/wayland-sessions/hyprland.desktop
-    cp extras/start-hypr ~/
+    fi
 
-    #setup the first look and feel as dark
-    ln -sf ~/.config/waybar/style/style-dark.css ~/.config/waybar/style.css
-    ln -sf ~/.config/wofi/style/style-dark.css ~/.config/wofi/style.css
+    # Dark mode
     xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
     xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita-dark"
     gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
     gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
-    ln -sf /usr/share/sddm/themes/sdt/Backgrounds/wallpaper-dark.jpg /usr/share/sddm/themes/sdt/wallpaper.jpg
+    ln -sf ~/.config.jsonc/hypr/wallpaper.jpg /usr/share/sddm/themes/sugar-candy/Background.jpg
 fi
 
-### Install the starship shell ###
-read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to activate the starship shell? (y,n) ' STAR
-if [[ $STAR == "Y" || $STAR == "y" ]]; then
-    # install the starship shell
-    echo -e "$CNT - Hansen Crusher, Engage!"
-    echo -e "$CNT - Updating .bashrc..."
-    echo -e '\neval "$(starship init bash)"' >> ~/.bashrc
-    echo -e "$CNT - copying starship config file to ~/.confg ..."
-    cp extras/starship.toml ~/.config/
+### Setup XDG dirs ###
+
+# XDG_DESKTOP_DIR="$HOME/Desktop"
+# XDG_DOWNLOAD_DIR="$HOME/Downloads"
+# XDG_TEMPLATES_DIR="$HOME/Templates"
+# XDG_PUBLICSHARE_DIR="$HOME/Public"
+# XDG_DOCUMENTS_DIR="$HOME/Documents"
+# XDG_MUSIC_DIR="$HOME/Music"
+# XDG_PICTURES_DIR="$HOME/Pictures"
+# XDG_SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
+# XDG_VIDEOS_DIR="$HOME/Videos"
+
+read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to setup XDG dirs? (y,n) ' XDG
+if [[ $XDG == "Y" || $XDG == "y" ]]; then
+    echo -e "$CNT - Setting up XDG dirs..."
+    {
+        echo "XDG_DESKTOP_DIR=\"$HOME/Desktop\""
+        echo "XDG_DOWNLOAD_DIR=\"$HOME/Downloads\""
+        echo "XDG_TEMPLATES_DIR=\"$HOME/Templates\""
+        echo "XDG_PUBLICSHARE_DIR=\"$HOME/Public\""
+        echo "XDG_DOCUMENTS_DIR=\"$HOME/Documents\""
+        echo "XDG_MUSIC_DIR=\"$HOME/Music\""
+        echo "XDG_PICTURES_DIR=\"$HOME/Pictures\""
+        echo "XDG_SCREENSHOTS_DIR=\"$HOME/Pictures/Screenshots\""
+        echo "XDG_VIDEOS_DIR=\"$HOME/Videos\""
+    } >> ~/.config.jsonc/user-dirs.dirs
+
+    echo -e "$CNT - Finished setting up XDG dirs."
 fi
 
-### Install software for Asus ROG laptops ###
-read -n1 -rep $'[\e[1;33mACTION\e[0m] - For ASUS ROG Laptops - Would you like to install Asus ROG software support? (y,n) ' ROG
-if [[ $ROG == "Y" || $ROG == "y" ]]; then
-    echo -e "$CNT - Adding Keys..."
-    sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35 &>> $INSTLOG
-    sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35 &>> $INSTLOG
-    sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35 &>> $INSTLOG
-    sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35 &>> $INSTLOG
+### Install the zsh shell ###
+read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install the zsh shell? (y,n) ' ZSH
+if [[ $ZSH == "Y" || $ZSH == "y" ]]; then
+  # Install zsh
+  echo -e "$CNT - Installing zsh..."
+  yay -S --noconfirm zsh &>> $INSTLOG
+  # Install oh-my-zsh
+  echo -e "$CNT - Installing oh-my-zsh..."
+  yay -S --noconfirm oh-my-zsh-git &>> $INSTLOG
 
-    LOC="/etc/pacman.conf"
-    echo -e "$CNT - Updating $LOC with g14 repo."
-    echo -e "\n[g14]\nServer = https://arch.asus-linux.org" | sudo tee -a $LOC &>> $INSTLOG
-    echo -e "\n"
-    echo -e "$CNT - Update the system..."
-    sudo pacman -Suy --noconfirm &>> $INSTLOG
-
-    echo -e "$CNT - Installing ROG pacakges..."
-    sudo pacman -S --noconfirm asusctl supergfxctl rog-control-center &>> $INSTLOG
-    echo -e "$CNT - Activating ROG services..."
-    sudo systemctl enable --now power-profiles-daemon.service &>> $INSTLOG
-    sleep 2
-    sudo systemctl enable --now supergfxd &>> $INSTLOG
-    sleep 2
-
-    #add the keybinding file to the config
-    echo -e "\nsource = ~/.config/hypr/rog-g15-strix-2021-binds.conf" >> ~/.config/hypr/hyprland.conf
+  echo -e "$COK - Zsh is now installed."
 fi
 
 ### Script is done ###
