@@ -1,15 +1,36 @@
-# HyprV2
+# HyprV2.5
 An improved Hyprland deployment
 
+### Table of Contents
+- [HyprV2.5](#hyprv25)
+    + [Table of Contents](#table-of-contents)
+    + [About](#about)
+    + [Installation](#installation)
+    + [Packages](#packages)
+
+### About
 Modified version of the Hyprland install script from [SolDoesTech](https://github.com/SolDoesTech/) for running my own personal setup with a few tweaks such as more packages, my dotfiles and Nvidia fixes.
 This script is meant to be run on a fresh installation of Arch Linux.
 
+### Installation
 If you're running this make sure to install the following packages first:
 - git
 - yay
 - nvidia-dkms
 
 Make sure to follow the [Hyprland wiki](https://wiki.hyprland.org/Nvidia/) for the rest of the setup before running this script.
+
+Then run the following commands to install Hyprland using this script:
+```bash
+git clone https://github.com/DasIschBims/HyprV2.5.git
+cd HyprV2.5
+chmod +x ./set-hypr
+./set-hypr
+```
+
+---
+
+### Packages
 
 Below is a list of the packages that would be installed:
 
