@@ -118,7 +118,7 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: Iosevka Fixed
-    family: "MesloLGS NF"
+    family: "FiraCode Nerd Font"
     # family: CaskaydiaCove Nerd Font Mono
     # family: ComicMono Nerd Font Mono
 
@@ -132,7 +132,7 @@ font:
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Iosevka Fixed
-    family: "MesloLGS NF"
+    family: "FiraCode Nerd Font"
     # family: CaskaydiaCove Nerd Font Mono
     # family: ComicMono Nerd Font Mono
 
@@ -146,7 +146,7 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Iosevka Fixed
-    family: "MesloLGS NF"
+    family: "FiraCode Nerd Font"
     # family: CaskaydiaCove Nerd Font Mono
     # family: ComicMono Nerd Font Mono
 
@@ -160,7 +160,7 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Iosevka Fixed
-    family: "MesloLGS NF"
+    family: "FiraCode Nerd Font"
     # family: CaskaydiaCove Nerd Font Mono
     # family: ComicMono Nerd Font Mono
 

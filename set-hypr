@@ -7,7 +7,7 @@
 # Below is a list of the packages that would be installed
 #
 # hyprland: This is the Hyprland compositor
-# hyprpaper-git: This is a wallpaper manager for Hyprland
+# hyprpaper: This is a wallpaper manager for Hyprland
 # alacritty: This is my terminal emulator of choice
 # waybar-hyprland: This is a fork of waybar with Hyprland workspace support
 # swww: This is used to set a desktop background image
@@ -111,7 +111,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     
     #Stage 1
     echo -e "\n$CNT - Stage 1 - Installing main components, this may take a while..."
-    for SOFTWR in hyprland hyprpaper-git alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grimshot slurp thunar
+    for SOFTWR in hyprland hyprpaper alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grimshot slurp thunar
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -182,27 +182,25 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 fi
 
 ### Copy Config Files ###
-read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config.jsonc files? (y,n) ' CFG
+read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) ' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
-    for DIR in .config.jsonc/*
+    for DIR in .config/*
     do 
-        DIRPATH=~/.config.jsonc/$DIR
+        DIRPATH=~/.config/$DIR
         if [ -d "$DIRPATH" ]; then 
             echo -e "$CAT - Config for $DIR located, backing up."
             mv "$DIRPATH" "$DIRPATH"-backup &>> $INSTLOG
             echo -e "$COK - Backed up $DIR to $DIRPATH-backup."
         fi
         echo -e "$CNT - Copying $DIR config to $DIRPATH."  
-        cp -R "$DIR" ~/.config.jsonc/ &>> $INSTLOG
+        cp -R "$DIR" ~/.config/ &>> $INSTLOG
     done
 
     # Set some files as executable
     echo -e "$CNT - Setting some file as executable."
-    chmod +x ~/.config.jsonc/hypr/scripts/xdg-portal-hyprland
-    chmod +x ~/.config.jsonc/waybar/scripts/waybar-wttr.py
-    chmod +x ~/.config.jsonc/waybar/scripts/baraction
-    chmod +x ~/.config.jsonc/waybar/scripts/update-sys
+    chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
+    chmod +x ~/.config/waybar/scripts/waybar-wttr.py
 
     # Copy the SDDM theme
     echo -e "$CNT - Setting up the login screen."

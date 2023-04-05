@@ -1,20 +1,15 @@
 # HyprV2
 An improved Hyprland deployment
 
-collection of dot config files for hyprland with a simple install script for a fresh Arch linux with yay
+Modified version of the Hyprland install script from [SolDoesTech](https://github.com/SolDoesTech/) for running my own personal setup with a few tweaks such as more packages, my dotfiles and Nvidia fixes.
+This script is meant to be run on a fresh installation of Arch Linux.
 
-You can grab the config files and install packages by hand with this commnad
-```
-yay -S hyprland-bin kitty waybar-hyprland swww \ 
-swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git \
-swappy grim slurp thunar polkit-gnome python-requests pamixer \
-pavucontrol brightnessctl bluez bluez-utils blueman \
-network-manager-applet gvfs thunar-archive-plugin file-roller btop \
-pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji 
-lxappearance xfce4-settings sddm-git sddm-sugar-candy-git
-```
+If you're running this make sure to install the following packages first:
+- git
+- yay
+- nvidia-dkms
 
-Or you can use the attached script "set-hypr" to install everything for you.
+Make sure to follow the [Hyprland wiki](https://wiki.hyprland.org/Nvidia/) for the rest of the setup before running this script.
 
 Below is a list of the packages that would be installed:
 
