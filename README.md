@@ -13,6 +13,8 @@ Modified version of the Hyprland install script from [SolDoesTech](https://githu
 This script is meant to be run on a fresh installation of Arch Linux.
 
 ### Installation
+>:warning: I am not responsible for any damage this script could cause! Be warned.
+
 If you're running this make sure to install the following packages first:
 - git
 - yay
