@@ -216,7 +216,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     xfconf-query -c xsettings -p /Net/IconThemeName -s "dracula"
     gsettings set org.gnome.desktop.interface gtk-theme "dracula"
     gsettings set org.gnome.desktop.interface icon-theme "dracula"
-    ln -sf ~/.config.jsonc/hypr/wallpaper.jpg /usr/share/sddm/themes/sugar-candy/Background.jpg
+    ln -sf ~/.config/hypr/wallpaper.jpg /usr/share/sddm/themes/sugar-candy/Background.jpg
 fi
 
 ### Setup XDG dirs ###
@@ -244,7 +244,7 @@ if [[ $XDG == "Y" || $XDG == "y" ]]; then
         echo "XDG_PICTURES_DIR=\"$HOME/Pictures\""
         echo "XDG_SCREENSHOTS_DIR=\"$HOME/Pictures/Screenshots\""
         echo "XDG_VIDEOS_DIR=\"$HOME/Videos\""
-    } >> ~/.config.jsonc/user-dirs.dirs
+    } >> ~/.config/user-dirs.dirs
 
     echo -e "$CNT - Finished setting up XDG dirs."
 fi
