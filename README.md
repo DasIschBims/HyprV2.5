@@ -47,7 +47,6 @@ Below is a list of the packages that would be installed:
 | wlogout                         | This is a logout menu that allows for shutdown, reboot and sleep                                |
 | mako                            | This is a graphical notification daemon                                                         |
 | xdg-desktop-portal-hyprland-git | xdg-desktop-portal backend for hyprland                                                         |
-| swappy                          | This is a screenshot editor tool                                                                |
 | grim                            | This is a screenshot tool it grabs images from a Wayland compositor                             |
 | slurp                           | This helps with screenshots, it selects a region in a Wayland compositor                        |
 | thunar                          | This is a graphical file manager                                                                |
@@ -60,7 +59,7 @@ Below is a list of the packages that would be installed:
 | thunar-archive-plugin           | Provides a frontend for thunar to work with compressed files                                    |
 | file-roller                     | Backend set of tools for working with compressed files                                          |
 | btop                            | Resource monitor that shows usage and stats for processor, memory, disks, network and processes |
-| noto-fonts-emoji                | fonts needed by the weather script in the top bar                                               |
+| noto-fonts                      | fonts needed by the weather script in the top bar and other applications                        |
 | lxappearance                    | used to set GTK theme                                                                           |
 | xfce4-settings                  | set of tools for xfce, needed to set GTK theme                                                  |
 | sddm-git                        | development version of SDDM which is a display manager for graphical login                      |
@@ -68,6 +67,8 @@ Below is a list of the packages that would be installed:
 | ttf-firacode-nerd               | Nerd fonts for icons and overall look                                                           |
 | neofetch                        | Fetching...                                                                                     |
 | pfetch-git                      | My fetching tool of choice                                                                      |
+| xdg-user-dirs                   | For creating user dirs and setting env vars                                                     |
+| playerctl                       | Audio settings                                                                                  |
 
 
 ### Hyprland Fixes (Nvidia)

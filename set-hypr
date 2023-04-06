@@ -16,7 +16,6 @@
 # wlogout: This is a logout menu that allows for shutdown, reboot and sleep
 # mako: This is a graphical notification daemon
 # xdg-desktop-portal-hyprland-git: xdg-desktop-portal backend for hyprland
-# swappy: This is a screenshot editor tool
 # grimshot: This is a screenshot tool
 # slurp: This helps with screenshots, it selects a region in a Wayland compositor
 # thunar: This is a graphical file manager
@@ -29,7 +28,7 @@
 # thunar-archive-plugin: Provides a front ent for thunar to work with compressed files
 # file-roller: Backend set of tools for working with compressed files
 # btop: Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
-# noto-fonts-emoji: fonts needed by the weather script in the top bar
+# noto-fonts (noto-fonts-emoji noto-fonts-cjk noto-fonts): fonts needed by the weather script in the top bar and other applications
 # lxappearance: used to set GTK theme
 # xfce4-settings: set of tools for xfce, needed to set GTK theme
 # sddm-git: developement version of SDDM which is a display manager for graphical login
@@ -39,6 +38,8 @@
 # pfetch-git: I like pfetch better than neofetch (don't judge me)
 # zsh: This is my shell of choice
 # oh-my-zsh-git: This is a framework for zsh
+# playerctl: Audio settings
+# xdg-user-dirs: For creating user dirs and setting env vars
 
 # Hyprland fixes (Nvidia)
 # nvidia-vaapi-driver-git
@@ -111,7 +112,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     
     #Stage 1
     echo -e "\n$CNT - Stage 1 - Installing main components, this may take a while..."
-    for SOFTWR in hyprland hyprpaper alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grimshot slurp thunar
+    for SOFTWR in hyprland hyprpaper alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git grimshot slurp thunar
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -130,7 +131,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 
     #Stage 2
     echo -e "\n$CNT - Stage 2 - Installing additional tools and utilities, this may take a while..."
-    for SOFTWR in polkit-gnome python-requests pamixer pavucontrol network-manager-applet gvfs thunar-archive-plugin file-roller btop neofetch pfetch-git
+    for SOFTWR in polkit-gnome python-requests pamixer pavucontrol playerctl network-manager-applet gvfs thunar-archive-plugin file-roller btop neofetch pfetch-git
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -149,7 +150,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
 
     #Stage 3
     echo -e "\n$CNT - Stage 3 - Installing theme and visual related tools and utilities, this may take a while..."
-    for SOFTWR in ttf-firacode-nerd noto-fonts-emoji lxappearance xfce4-settings sddm-git sddm-sugar-candy-git
+    for SOFTWR in ttf-firacode-nerd noto-fonts-emoji noto-fonts-cjk noto-fonts lxappearance xfce4-settings sddm-git sddm-sugar-candy-git dracula-gtk-theme
     do
         #First lets see if the package is there
         if yay -Qs $SOFTWR > /dev/null ; then
@@ -165,11 +166,6 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
             fi
         fi
     done
-
-    # Start the bluetooth service
-    echo -e "$CNT - Starting the Bluetooth Service..."
-    sudo systemctl enable --now bluetooth.service &>> $INSTLOG
-    sleep 2
 
     # Enable the sddm login manager service
     echo -e "$CNT - Enabling the SDDM Service..."
@@ -216,10 +212,10 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     fi
 
     # Dark mode
-    xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
-    xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita-dark"
-    gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-    gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
+    xfconf-query -c xsettings -p /Net/ThemeName -s "dracula"
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "dracula"
+    gsettings set org.gnome.desktop.interface gtk-theme "dracula"
+    gsettings set org.gnome.desktop.interface icon-theme "dracula"
     ln -sf ~/.config.jsonc/hypr/wallpaper.jpg /usr/share/sddm/themes/sugar-candy/Background.jpg
 fi
 
