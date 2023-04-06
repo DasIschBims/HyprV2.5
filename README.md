@@ -38,8 +38,8 @@ Below is a list of the packages that would be installed:
 
 | Package Name                    | Description                                                                                     |
 |---------------------------------|-------------------------------------------------------------------------------------------------|
-| hyprland-bin                    | This is the Hyprland compositor                                                                 |
-| hyprpaper-git                   | This is a wallpaper manager for Hyprland                                                        |
+| hyprland                        | This is the Hyprland compositor                                                                 |
+| hyprpaper                       | This is a wallpaper manager for Hyprland                                                        |
 | alacritty                       | This is my terminal emulator of choice                                                          |
 | waybar-hyprland                 | This is a fork of waybar with Hyprland workspace support                                        |
 | swaylock-effects                | This allows for the locking of the desktop its a fork that adds some additional visual effects  |
