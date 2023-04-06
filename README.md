@@ -1,5 +1,5 @@
 # HyprV2.5
-An improved Hyprland deployment
+A fork of an improved hyprland deployment script. Now with Nvidia support!
 
 ### Table of Contents
 - [HyprV2.5](#hyprv25)
