@@ -15,6 +15,10 @@ A fork of an improved hyprland deployment script. Now with Nvidia support!
 Modified version of the Hyprland install script from [SolDoesTech](https://github.com/SolDoesTech/) for running my own personal setup with a few tweaks such as more packages, my dotfiles and Nvidia packages.
 This script is meant to be run on a fresh installation of Arch Linux.
 
+Preview of my dotfiles can be found [here](https://github.com/DasIschBims/dotfiles/tree/master/clouds).
+
+![](https://raw.githubusercontent.com/DasIschBims/dotfiles/master/clouds/images/showcase.png)
+
 ### Installation
 
 > :warning: I am not responsible for any damage this script could cause! Be warned.
