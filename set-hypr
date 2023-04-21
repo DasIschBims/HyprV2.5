@@ -41,7 +41,7 @@
 # playerctl: Audio settings
 # xdg-user-dirs: For creating user dirs and setting env vars
 
-# Hyprland fixes (Nvidia)
+# Nvidia related packages
 # nvidia-vaapi-driver-git
 # libva-git
 # qt5ct
@@ -88,7 +88,7 @@ sleep 3
 HASYAY=$(which yay)
 if [ -f "$HASYAY" ]; then
     echo -e "$COK - yay was located, moving on."
-else 
+else
     echo -e "$CWR - Yay was NOT located"
     read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install yay (y,n) ' INSTYAY
     if [[ $INSTYAY == "Y" || $INSTYAY == "y" ]]; then
@@ -128,7 +128,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
             fi
         fi
     done
-
+    
     #Stage 2
     echo -e "\n$CNT - Stage 2 - Installing additional tools and utilities, this may take a while..."
     for SOFTWR in polkit-gnome python-requests pamixer pavucontrol playerctl network-manager-applet gvfs thunar-archive-plugin file-roller btop neofetch pfetch-git
@@ -147,7 +147,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
             fi
         fi
     done
-
+    
     #Stage 3
     echo -e "\n$CNT - Stage 3 - Installing theme and visual related tools and utilities, this may take a while..."
     for SOFTWR in ttf-firacode-nerd noto-fonts-emoji noto-fonts-cjk noto-fonts lxappearance xfce4-settings sddm-git sddm-sugar-candy-git dracula-gtk-theme
@@ -166,7 +166,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
             fi
         fi
     done
-
+    
     # Enable the sddm login manager service
     echo -e "$CNT - Enabling the SDDM Service..."
     sudo systemctl enable sddm &>> $INSTLOG
@@ -182,27 +182,27 @@ read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
     for DIR in .config/*
-    do 
+    do
         DIRPATH=~/.config/$DIR
-        if [ -d "$DIRPATH" ]; then 
+        if [ -d "$DIRPATH" ]; then
             echo -e "$CAT - Config for $DIR located, backing up."
             mv "$DIRPATH" "$DIRPATH"-backup &>> $INSTLOG
             echo -e "$COK - Backed up $DIR to $DIRPATH-backup."
         fi
-        echo -e "$CNT - Copying $DIR config to $DIRPATH."  
+        echo -e "$CNT - Copying $DIR config to $DIRPATH."
         cp -R "$DIR" ~/.config/ &>> $INSTLOG
     done
-
+    
     # Set some files as executable
     echo -e "$CNT - Setting some file as executable."
     chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
     chmod +x ~/.config/waybar/scripts/waybar-wttr.py
-
+    
     # Copy the SDDM theme
     echo -e "$CNT - Setting up the login screen."
     sudo mkdir /etc/sddm.conf.d
     echo -e "[Theme]\nCurrent=sugar-candy" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
-
+    
     WLDIR=/usr/share/wayland-sessions
     if [ -d "$WLDIR" ]; then
         echo -e "$COK - $WLDIR found"
@@ -210,7 +210,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         echo -e "$CWR - $WLDIR NOT found, creating..."
         sudo mkdir $WLDIR
     fi
-
+    
     # Dark mode
     xfconf-query -c xsettings -p /Net/ThemeName -s "dracula"
     xfconf-query -c xsettings -p /Net/IconThemeName -s "dracula"
@@ -245,21 +245,21 @@ if [[ $XDG == "Y" || $XDG == "y" ]]; then
         echo "XDG_SCREENSHOTS_DIR=\"$HOME/Pictures/Screenshots\""
         echo "XDG_VIDEOS_DIR=\"$HOME/Videos\""
     } >> ~/.config/user-dirs.dirs
-
+    
     echo -e "$CNT - Finished setting up XDG dirs."
 fi
 
 ### Install the zsh shell ###
 read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install the zsh shell? (y,n) ' ZSH
 if [[ $ZSH == "Y" || $ZSH == "y" ]]; then
-  # Install zsh
-  echo -e "$CNT - Installing zsh..."
-  yay -S --noconfirm zsh &>> $INSTLOG
-  # Install oh-my-zsh
-  echo -e "$CNT - Installing oh-my-zsh..."
-  yay -S --noconfirm oh-my-zsh-git &>> $INSTLOG
-
-  echo -e "$COK - Zsh is now installed."
+    # Install zsh
+    echo -e "$CNT - Installing zsh..."
+    yay -S --noconfirm zsh &>> $INSTLOG
+    # Install oh-my-zsh
+    echo -e "$CNT - Installing oh-my-zsh..."
+    yay -S --noconfirm oh-my-zsh-git &>> $INSTLOG
+    
+    echo -e "$COK - Zsh is now installed."
 fi
 
 ### Script is done ###

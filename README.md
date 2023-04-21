@@ -1,21 +1,26 @@
 # HyprV2.5
+
 A fork of an improved hyprland deployment script. Now with Nvidia support!
 
 ### Table of Contents
+
 - [HyprV2.5](#hyprv25)
-    + [Table of Contents](#table-of-contents)
-    + [About](#about)
-    + [Installation](#installation)
-    + [Packages](#packages)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Installation](#installation)
+  - [Packages](#packages)
 
 ### About
-Modified version of the Hyprland install script from [SolDoesTech](https://github.com/SolDoesTech/) for running my own personal setup with a few tweaks such as more packages, my dotfiles and Nvidia fixes.
+
+Modified version of the Hyprland install script from [SolDoesTech](https://github.com/SolDoesTech/) for running my own personal setup with a few tweaks such as more packages, my dotfiles and Nvidia packages.
 This script is meant to be run on a fresh installation of Arch Linux.
 
 ### Installation
->:warning: I am not responsible for any damage this script could cause! Be warned.
+
+> :warning: I am not responsible for any damage this script could cause! Be warned.
 
 If you're running this make sure to install the following packages first:
+
 - git
 - yay
 - nvidia-dkms
@@ -23,11 +28,26 @@ If you're running this make sure to install the following packages first:
 Make sure to follow the [Hyprland wiki](https://wiki.hyprland.org/Nvidia/) for the rest of the setup before running this script.
 
 Then run the following commands to install Hyprland using this script:
+
 ```bash
 git clone https://github.com/DasIschBims/HyprV2.5.git
 cd HyprV2.5
 chmod +x ./set-hypr
 ./set-hypr
+```
+
+### Manual Installation
+
+If you don't want to use the script you can install the packages manually. The packages are listed below.
+
+```bash
+yay -S hyprland hyprpaper alacritty waybar-hyprland swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git grim slurp thunar polkit-gnome python-requests pamixer pavucontrol network-manager-applet gvfs thunar-archive-plugin file-roller btop noto-fonts lxappearance xfce4-settings sddm-git sddm-sugar-candy-git ttf-firacode-nerd neofetch pfetch-git xdg-user-dirs playerctl
+```
+
+Nvidia:
+
+```bash
+yay -S nvidia-vaapi-driver-git libva-git qt5ct qt5-wayland
 ```
 
 ---
@@ -37,7 +57,7 @@ chmod +x ./set-hypr
 Below is a list of the packages that would be installed:
 
 | Package Name                    | Description                                                                                     |
-|---------------------------------|-------------------------------------------------------------------------------------------------|
+| ------------------------------- | ----------------------------------------------------------------------------------------------- |
 | hyprland                        | This is the Hyprland compositor                                                                 |
 | hyprpaper                       | This is a wallpaper manager for Hyprland                                                        |
 | alacritty                       | This is my terminal emulator of choice                                                          |
@@ -70,13 +90,11 @@ Below is a list of the packages that would be installed:
 | xdg-user-dirs                   | For creating user dirs and setting env vars                                                     |
 | playerctl                       | Audio settings                                                                                  |
 
-
-### Hyprland Fixes (Nvidia)
+### Hyprland Packages (Nvidia)
 
 | Package Name            | Description |
-|-------------------------|-------------|
+| ----------------------- | ----------- |
 | nvidia-vaapi-driver-git | ---         |
 | libva-git               | ---         |
 | qt5ct                   | ---         |
 | qt5-wayland             | ---         |
-
